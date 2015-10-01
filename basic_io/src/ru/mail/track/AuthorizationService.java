@@ -4,9 +4,9 @@ import java.util.*;
 import java.io.Console;
 
 public class AuthorizationService {
-    final int USER_LOGIN = 1;
-    final int USER_ADD = 2;
-    final int USER_EXIT = 3;
+    final static int USER_LOGIN = 1;
+    final static int USER_ADD = 2;
+    final static int USER_EXIT = 3;
 
     private UserStore userStore;
     private boolean[] loginInfo;
