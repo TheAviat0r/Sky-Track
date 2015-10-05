@@ -1,21 +1,20 @@
 package ru.mail.track;
 
-
-public class User {
-    private String name;
+public class User extends Human {
     private String pass;
 
     public User(String name, String pass) {
-        this.name = name;
+        super(name, 20);
+
         this.pass = pass;
     }
 
     public String getName() {
-        return name;
+        return super.getName();
     }
 
     public void setName(String name) {
-        this.name = name;
+        super.setName(name);
     }
 
     public String getPass() {
