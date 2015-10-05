@@ -4,9 +4,13 @@ import java.util.*;
 import java.io.Console;
 
 public class AuthorizationService {
-    final String USER_LOGIN = "login";
-    final String USER_CREAT = "create";
-    final String USER_EXIT = "exit";
+    final static String USER_LOGIN = "login";
+    final static String USER_CREATE = "create";
+    final static String USER_EXIT = "exit";
+
+    final static int USER_LOGIN_HASH = USER_LOGIN.hashCode();
+    final static int USER_CREATE_HASH = USER_CREATE.hashCode();
+    final static int USER_EXIT_HASH = USER_EXIT.hashCode();
 
     private UserStore userStore;
 
@@ -20,17 +24,23 @@ public class AuthorizationService {
         Scanner input = new Scanner(System.in);
         System.out.println("Type commands: login, create, exit");
 
-        while (!USER_EXIT.equals(userChoise)) {
+        while (true) {
             if (input.hasNextLine()) {
                 userChoise = input.nextLine();
                 userChoise.toLowerCase();
 
-                if (USER_LOGIN.equals(userChoise)) {
+                if (userChoise.hashCode() == USER_LOGIN_HASH) {
                     login();
+                    continue;
                 }
-                else
-                    if (USER_CREAT.equals(userChoise)) creatUser();
-                    else System.out.println("Wrong command! Try again.");
+                if (userChoise.hashCode() == USER_CREATE_HASH) {
+                    creatUser();
+                    continue;
+                }
+                if (userChoise.hashCode() == USER_EXIT_HASH) {
+                    System.out.println("See you soon!");
+                    break;
+                }
             }
         }
     }
@@ -51,10 +61,10 @@ public class AuthorizationService {
         User user = userStore.getUser(userName, userPassword);
 
         if (user == null) {
-            System.out.println("User doesn't exist" + userName + " . Register now!");
+            System.out.println("User doesn't exist: " + userName + " Register now!");
             return creatUser();
-
         }
+
         if (user.getName().length() == 0) {
             System.out.println("Wrong password! ");
             return null;
@@ -72,20 +82,21 @@ public class AuthorizationService {
         Scanner input = new Scanner(System.in);
 
         System.out.println("What is your name?");
-        String newName = input.nextLine();
+        String newUserName = input.nextLine();
 
         System.out.println("Type your password");
-        String newPass = input.nextLine();
+        String newUserPass = input.nextLine();
 
-        User usr = new User(newName, newPass);
-        boolean addResult = userStore.addUser(usr);
+        User user = new User(newUserName, newUserPass);
 
-        if (addResult) System.out.println("Welcome to our system!");
+        if (userStore.addUser(user)) {
+            System.out.println("Welcome to our system!");
+        }
         else {
-            System.out.println("Unable to add - " + usr.toString());
+            System.out.println("Unable to add - " + user.toString());
             return null;
         }
 
-        return usr;
+        return user;
     }
 }

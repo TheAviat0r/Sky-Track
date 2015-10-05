@@ -21,12 +21,11 @@ public class UserStore {
     // Добавить пользователя в хранилище
     public boolean addUser(User user) {
         if (user == null) {
-            System.err.println("null pointer at addUser");
+            System.err.println(String.format("Failed to add user: %s", user));
             return false;
         }
 
-        boolean isExists = isUserExist(user.getName());
-        if (isExists) {
+        if (isUserExist(user.getName())) {
             System.out.print("Error! User already exists: " + user.getName());
             return false;
         }
@@ -43,10 +42,12 @@ public class UserStore {
     public User getUser(String name, String pass) {
         for (int i = 0; i < userStorage.size(); i++){
             if (userStorage.get(i).getName().equals(name)) {
-                if (userStorage.get(i).getPass().equals(pass))
+                if (userStorage.get(i).getPass().equals(pass)) {
                     return userStorage.get(i);
-                else
-                    return new User ("", ""); //wrong password
+                }
+                else {
+                    return new User("", ""); //wrong password
+                }
             }
         }
 
