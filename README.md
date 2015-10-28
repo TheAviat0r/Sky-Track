@@ -1,2 +1,2 @@
 ##Track
-Bulat Niatshin AMS-11
+Ниатшин Булат АМС-11
