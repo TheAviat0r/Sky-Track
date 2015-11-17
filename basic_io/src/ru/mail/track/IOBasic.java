@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class IOBasic {
-
-
     // Using scanner
     public static void readConsoleScanner() {
         Scanner scanner = new Scanner(System.in);

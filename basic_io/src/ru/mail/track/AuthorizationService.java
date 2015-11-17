@@ -4,42 +4,42 @@ import java.util.*;
 import java.io.Console;
 
 public class AuthorizationService {
-    final int USER_LOGIN = 1;
-    final int USER_ADD = 2;
-    final int USER_EXIT = 3;
+    final static String USER_LOGIN = "login";
+    final static String USER_CREATE = "create";
+    final static String USER_EXIT = "exit";
+
+    final static int USER_LOGIN_HASH = USER_LOGIN.hashCode();
+    final static int USER_CREATE_HASH = USER_CREATE.hashCode();
+    final static int USER_EXIT_HASH = USER_EXIT.hashCode();
 
     private UserStore userStore;
-    private boolean[] loginInfo;
 
     public AuthorizationService(UserStore userStore) {
         this.userStore = userStore;
-        this.loginInfo = new boolean[100];
     }
 
     void startAuthorization() {
-        int userChoise = 0;
+        String userChoise = "";
 
         Scanner input = new Scanner(System.in);
-        System.out.println("1 - login, 2 - create account, 3 - exit");
+        System.out.println("Type commands: login, create, exit");
 
-        while (userChoise != USER_EXIT) {
-            if (input.hasNextInt()) {
-                userChoise = input.nextInt();
+        while (true) {
+            if (input.hasNextLine()) {
+                userChoise = input.nextLine();
+                userChoise.toLowerCase();
 
-                switch(userChoise) {
-                    case USER_LOGIN:
-                        login();
-                        break;
-                    case USER_ADD:
-                        User newUser = creatUser();
-                        if (newUser != null) userStore.addUser(newUser);
-                        break;
-                    case USER_EXIT:
-                        System.out.println("Have a nice day!");
-                        return;
-                    default:
-                        System.out.println("Wrong input! Try again with a proper format!");
-                        break;
+                if (userChoise.hashCode() == USER_LOGIN_HASH) {
+                    login();
+                    continue;
+                }
+                if (userChoise.hashCode() == USER_CREATE_HASH) {
+                    creatUser();
+                    continue;
+                }
+                if (userChoise.hashCode() == USER_EXIT_HASH) {
+                    System.out.println("See you soon!");
+                    break;
                 }
             }
         }
@@ -60,14 +60,14 @@ public class AuthorizationService {
 
         User user = userStore.getUser(userName, userPassword);
 
-        if (user.getName().length() == 0) {
-            System.out.println("User doesn't exist!");
+        if (user == null) {
+            System.out.println("User doesn't exist: " + userName + " Register now!");
             return creatUser();
         }
 
-        if (user.getPass().length() == 0) {
-            System.out.println("Wrong password! Try again");
-            return login();
+        if (user.getName().length() == 0) {
+            System.out.println("Wrong password! ");
+            return null;
         }
 
         System.out.println("You are welcome!");
@@ -79,44 +79,24 @@ public class AuthorizationService {
         // 1. Ask for name
         // 2. Ask for pass
         // 3. Add user to UserStore: userStore.addUser(user)
+        Scanner input = new Scanner(System.in);
 
         System.out.println("What is your name?");
-
-        Scanner input = new Scanner(System.in);
-
-        String newName = input.nextLine();
+        String newUserName = input.nextLine();
 
         System.out.println("Type your password");
-        String newPass = input.nextLine();
+        String newUserPass = input.nextLine();
 
-        User usr = new User(newName, newPass);
-        System.out.println("usr: " + newName + " " + newPass);
+        User user = new User(newUserName, newUserPass);
 
-        return usr;
-    }
-
-    boolean isLogin() {
-        System.out.println("To login, type 1");
-        System.out.println("To create new account, type 2");
-
-        Scanner input = new Scanner(System.in);
-
-        if (input.hasNextInt()) {
-            int userChoise = input.nextInt();
-
-            while (userChoise != 1 || userChoise != 2) {
-                switch (userChoise) {
-                    case 1:
-                        return true;
-                    case 2:
-                        return false;
-                    default:
-                        System.out.println("Wrong input! Try again!");
-                        break;
-                }
-            }
+        if (userStore.addUser(user)) {
+            System.out.println("Welcome to our system!");
+        }
+        else {
+            System.out.println("Unable to add - " + user.toString());
+            return null;
         }
 
-        return false;
+        return user;
     }
 }

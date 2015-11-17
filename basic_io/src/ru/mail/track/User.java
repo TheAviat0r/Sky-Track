@@ -1,6 +1,5 @@
 package ru.mail.track;
 
-
 public class User {
     private String name;
     private String pass;
@@ -11,7 +10,7 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
