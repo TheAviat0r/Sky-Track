@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,6 +81,7 @@ public class SocketConnectionHandler implements ConnectionHandler {
                     Message msg = protocol.decode(Arrays.copyOf(buf, read));
                     msg.setSender(session.getId());
                     log.info("message received: {}", msg);
+
                     // Уведомим всех подписчиков этого события
                     notifyListeners(session, msg);
                 }

@@ -36,7 +36,7 @@ public class HelpCommand implements Command {
 
 
     @Override
-    public BaseCommandResult execute(Session session, Message msg) {
+    public Message execute(Session session, Message msg) {
         /**
          * В простом случае просто выводим данные на консоль
          * Если будем работать через сеть, то команде придется передать также объект для работы с сетью
@@ -50,6 +50,6 @@ public class HelpCommand implements Command {
 
         commandResult.appendNewLine(manualContent);
 
-        return commandResult;
+        return null;
     }
 }

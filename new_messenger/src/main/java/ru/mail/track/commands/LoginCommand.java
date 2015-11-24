@@ -36,25 +36,20 @@ public class LoginCommand implements Command {
         String password = loginMsg.getPass();
         switch (loginMsg.getArgType()) {
             case LOGIN:
-                if (session.getSessionUser() != null) {
-                    log.info("User {} already logged in.", session.getSessionUser());
-                    commandResult.setResponse("You have already logged in.");
+                User user = authService.login(name, password);
+                if (user == null) {
+                    log.info("login: Wrong login or password.");
+                    commandResult.setResponse("Wrong login or password.");
                 } else {
-                    User user = authService.login(name, password);
-                    if (user == null) {
-                        log.info("login: Wrong login or password.");
-                        commandResult.setResponse("Wrong login or password.");
-                    } else {
-                        session.setSessionUser(user);
-                        sessionManager.registerUser(user.getId(), session.getId());
-                        log.info("Success login: {}", user);
-                        UserInfoCommand userInfoCommand = new UserInfoCommand(authService.getUserStore());
+                    session.setSessionUser(user);
+                    sessionManager.registerUser(user.getId(), session.getId());
+                    log.info("Success login: {}", user);
+                    UserInfoCommand userInfoCommand = new UserInfoCommand(authService.getUserStore());
 
-                        // Вывести информацию о себе
-                        LoginMessage userInfoMessage = new LoginMessage();
-                        userInfoMessage.setArgType(LoginMessage.ArgType.SELF_INFO);
-                        return userInfoCommand.execute(session, userInfoMessage);
-                    }
+                    // Вывести информацию о себе
+                    LoginMessage userInfoMessage = new LoginMessage();
+                    userInfoMessage.setArgType(LoginMessage.ArgType.SELF_INFO);
+                    return userInfoCommand.execute(session, userInfoMessage);
                 }
                 break;
             case CREAT_USER:

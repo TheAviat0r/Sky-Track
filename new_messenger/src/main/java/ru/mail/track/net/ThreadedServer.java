@@ -3,13 +3,14 @@ package ru.mail.track.net;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.mail.track.commands.*;
+import ru.mail.track.jdbc.DatabaseStore;
 import ru.mail.track.message.MessageStore;
-import ru.mail.track.message.MessageStoreStub;
+import ru.mail.track.jdbc.MessageDatabaseStore;
+import ru.mail.track.jdbc.UserDatabaseStore;
+//import ru.mail.track.message.MessageStoreStub;
 import ru.mail.track.message.UserStore;
-import ru.mail.track.message.UserStoreStub;
 import ru.mail.track.serialization.Protocol;
 import ru.mail.track.serialization.JsonProtocol;
-import ru.mail.track.serialization.SerializationProtocol;
 import ru.mail.track.AuthorizationService;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class ThreadedServer {
 
-    public static final int PORT = 19014;
+    public static final int PORT = 19018;
     static Logger log = LoggerFactory.getLogger(ThreadedServer.class);
     private volatile boolean isRunning;
     private Map<Long, ConnectionHandler> handlers = new HashMap<>();
@@ -54,8 +55,10 @@ public class ThreadedServer {
         Protocol protocol = new JsonProtocol();
         SessionManager sessionManager = new SessionManager();
 
-        UserStore userStore = new UserStoreStub();
-        MessageStore messageStore = new MessageStoreStub();
+        DatabaseStore messengerDatabase = new DatabaseStore();
+        UserStore userStore = messengerDatabase.getUsersDao();
+        MessageStore messageStore = messengerDatabase.getMessagesDao();
+
         AuthorizationService authService = new AuthorizationService(userStore);
 
         Map<CommandType, Command> cmds = new HashMap<>();
@@ -77,7 +80,6 @@ public class ThreadedServer {
         }
 
         CommandHandler handler = new CommandHandler(cmds);
-
 
         ThreadedServer server = new ThreadedServer(protocol, sessionManager, handler);
 

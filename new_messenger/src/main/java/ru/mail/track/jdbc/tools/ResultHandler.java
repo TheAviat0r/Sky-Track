@@ -1,4 +1,4 @@
-package ru.mail.track.jdbc;
+package ru.mail.track.jdbc.tools;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

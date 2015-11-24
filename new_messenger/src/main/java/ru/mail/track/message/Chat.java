@@ -43,6 +43,8 @@ public class Chat {
         participantIds.add(id);
     }
 
+    public void addParticipants(List<Long> ids) { participantIds.addAll(ids); }
+
     public void addMessage(Long id) {
         messageIds.add(id);
     }

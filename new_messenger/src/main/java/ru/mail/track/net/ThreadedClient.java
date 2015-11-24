@@ -24,7 +24,7 @@ import javax.annotation.PostConstruct;
  */
 public class ThreadedClient implements MessageListener {
 
-    public static final int PORT = 19014;
+    public static final int PORT = 19018;
     public static final String HOST = "localhost";
     static Logger log = LoggerFactory.getLogger(ThreadedClient.class);
     ConnectionHandler handler;

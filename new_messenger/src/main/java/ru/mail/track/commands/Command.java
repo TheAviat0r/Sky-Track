@@ -20,6 +20,6 @@ public interface Command {
      *
      * В качестве пример оставлю void
      */
-    BaseCommandResult execute(Session session, Message message);
+    Message execute(Session session, Message message);
 
 }
