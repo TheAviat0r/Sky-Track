@@ -17,18 +17,18 @@ public class ChatCreateCommand implements Command {
 
     private MessageStore messageStore;
     private UserStore userStore;
-    private BaseCommandResult commandResult;
+    private ServerResponse commandResult;
 
     public ChatCreateCommand(UserStore userStore, MessageStore messageStore) {
         this.messageStore = messageStore;
         this.userStore = userStore;
-        commandResult = new BaseCommandResult();
+        commandResult = new ServerResponse();
         commandResult.setStatus(CommandResult.Status.OK);
     }
 
 
     @Override
-    public BaseCommandResult execute(Session session, Message msg) {
+    public ServerResponse execute(Session session, Message msg) {
         SendMessage chatCreateMsg = (SendMessage) msg;
         if (session.getSessionUser() != null) {
             List<Long> participants = new ArrayList<>();

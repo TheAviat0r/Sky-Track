@@ -19,12 +19,21 @@ public class SendMessage extends Message {
     private String message;
 
     public SendMessage() {
-        setType(CommandType.MSG_SEND);
+        setType(CommandType.CHAT_SEND);
     }
 
     public SendMessage(Long chatId, String message) {
         this.chatId = chatId;
         this.message = message;
+    }
+
+    public SendMessage(CommandType messageType, String message) {
+        super.setType(messageType);
+        this.message = message;
+    }
+
+    public SendMessage(CommandType messageType) {
+        super.setType(messageType);
     }
 
     public Long getChatId() {

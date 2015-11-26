@@ -35,7 +35,7 @@ public class JsonProtocolTest {
         SendMessage send = new SendMessage();
         send.setChatId(1L);
         send.setMessage("Hello world!");
-        messages.put(CommandType.MSG_SEND, send);
+        messages.put(CommandType.CHAT_SEND, send);
 
     }
 
@@ -50,7 +50,7 @@ public class JsonProtocolTest {
 
     @Test(expected = ProtocolException.class)
     public void testSend() throws Exception {
-        Message origin = messages.get(CommandType.MSG_SEND);
+        Message origin = messages.get(CommandType.CHAT_SEND);
         byte[] data = protocol.encode(origin);
         Message copy = protocol.decode(data);
         assertEquals(origin, copy);

@@ -27,7 +27,7 @@ public class CommandHandler implements MessageListener {
     public void onMessage(Session session, Message message) {
         Command cmd = commands.get(message.getType());
         log.info("onMessage: {} type {}", message, message.getType());
-        BaseCommandResult commandResult = cmd.execute(session, message);
+        ServerResponse commandResult = cmd.execute(session, message);
 
         switch (commandResult.getStatus()) {
             case OK:
@@ -35,6 +35,8 @@ public class CommandHandler implements MessageListener {
             case NOT_LOGGINED:
                 commandResult.setResponse("You must log in.");
                 break;
+            case LOGGED_OUT:
+                return;
             case FAILED:
                 break;
             default:
@@ -43,10 +45,14 @@ public class CommandHandler implements MessageListener {
         // Отправить текстовый результат выполнения команды
         try {
             SendMessage sendMessage = new SendMessage();
-            sendMessage.setType(CommandType.MSG_SEND);
+            sendMessage.setType(CommandType.CHAT_SEND);
             sendMessage.setChatId(0L);
-            sendMessage.setMessage("\n\n" + commandResult.getResponse() + "\n\n");
+            sendMessage.setMessage("\n------------------\n" + commandResult.getResponse() + "\n------------------\n\n");
             session.getConnectionHandler().send(sendMessage);
+
+            if (commandResult.getStatus() == CommandResult.Status.LOGGED_OUT) {
+                session.logOut();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

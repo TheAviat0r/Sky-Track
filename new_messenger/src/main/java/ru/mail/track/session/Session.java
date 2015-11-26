@@ -44,6 +44,10 @@ public class Session {
         this.sessionUser = sessionUser;
     }
 
+    public void logOut() {
+        this.id = null;
+        this.sessionUser = null;
+    }
     @Override
     public String toString() {
         return "Session{" +

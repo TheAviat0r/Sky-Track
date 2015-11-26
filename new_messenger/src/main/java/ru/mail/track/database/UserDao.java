@@ -1,10 +1,10 @@
-package ru.mail.track.jdbc;
+package ru.mail.track.database;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.mail.track.jdbc.tools.DatabaseConnector;
-import ru.mail.track.jdbc.tools.QueryExecutor;
+import ru.mail.track.database.tools.DatabaseConnector;
+import ru.mail.track.database.tools.QueryExecutor;
 import ru.mail.track.message.User;
 import ru.mail.track.message.UserStore;
 
@@ -14,11 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserDatabaseStore implements UserStore {
-    static Logger log = LoggerFactory.getLogger(UserDatabaseStore.class);
+public class UserDao implements UserStore {
+    static Logger log = LoggerFactory.getLogger(UserDao.class);
     private QueryExecutor queryExecutor;
 
-    public UserDatabaseStore() {
+    public UserDao() {
         Connection connection = DatabaseConnector.getInstance().getConnection();
         queryExecutor = new QueryExecutor(connection);
     }

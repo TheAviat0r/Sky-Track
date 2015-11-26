@@ -1,4 +1,4 @@
-package ru.mail.track.jdbc.tools;
+package ru.mail.track.database.tools;
 
 import org.postgresql.ds.PGPoolingDataSource;
 
@@ -27,7 +27,7 @@ public class DatabaseConnector {
             Class.forName("org.postgresql.Driver");
 
             source = new PGPoolingDataSource();
-            source.setDataSourceName("rakhimovv_chat_db");
+            source.setDataSourceName("aviator_chat_db");
             source.setServerName("178.62.140.149");
             source.setDatabaseName("rakhimovv");
             source.setUser("senthil");

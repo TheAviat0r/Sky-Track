@@ -31,7 +31,7 @@ public class MessageSerializerTest {
         SendMessage send = new SendMessage();
         send.setChatId(1L);
         send.setMessage("Hello world!");
-        messages.put(CommandType.MSG_SEND, send);
+        messages.put(CommandType.CHAT_SEND, send);
 
     }
 
@@ -50,7 +50,7 @@ public class MessageSerializerTest {
     @Test
     //@Ignore
     public void encodeSend() throws Exception {
-        Message origin = messages.get(CommandType.MSG_SEND);
+        Message origin = messages.get(CommandType.CHAT_SEND);
         Protocol protocol = new SerializationProtocol();
         byte[] data = protocol.encode(origin);
         Message copy = protocol.decode(data);

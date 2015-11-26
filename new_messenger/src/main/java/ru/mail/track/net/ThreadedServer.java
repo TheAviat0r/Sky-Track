@@ -3,10 +3,8 @@ package ru.mail.track.net;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.mail.track.commands.*;
-import ru.mail.track.jdbc.DatabaseStore;
+import ru.mail.track.database.DatabaseStore;
 import ru.mail.track.message.MessageStore;
-import ru.mail.track.jdbc.MessageDatabaseStore;
-import ru.mail.track.jdbc.UserDatabaseStore;
 //import ru.mail.track.message.MessageStoreStub;
 import ru.mail.track.message.UserStore;
 import ru.mail.track.serialization.Protocol;
@@ -25,7 +23,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class ThreadedServer {
 
-    public static final int PORT = 19018;
+    public static final int PORT = 19048;
     static Logger log = LoggerFactory.getLogger(ThreadedServer.class);
     private volatile boolean isRunning;
     private Map<Long, ConnectionHandler> handlers = new HashMap<>();
@@ -64,12 +62,13 @@ public class ThreadedServer {
         Map<CommandType, Command> cmds = new HashMap<>();
         cmds.put(CommandType.USER_LOGIN, new LoginCommand(authService, sessionManager));
         cmds.put(CommandType.USER_INFO, new UserInfoCommand(userStore));
-        cmds.put(CommandType.USER_PASS, new UserPassCommand());
+        cmds.put(CommandType.USER_PASS, new UserPassCommand(userStore));
         cmds.put(CommandType.CHAT_LIST, new ChatListCommand(messageStore));
         cmds.put(CommandType.CHAT_HISTORY, new ChatHistoryCommand(messageStore));
         cmds.put(CommandType.CHAT_FIND, new ChatFindCommand(messageStore));
         cmds.put(CommandType.CHAT_CREATE, new ChatCreateCommand(userStore, messageStore));
-        cmds.put(CommandType.MSG_SEND, new SendCommand(sessionManager, messageStore));
+        cmds.put(CommandType.CHAT_SEND, new SendCommand(sessionManager, messageStore));
+        cmds.put(CommandType.LOGOUT, new LogoutCommand());
 
         try {
             cmds.put(CommandType.USER_HELP, new HelpCommand(cmds, manualFileName));

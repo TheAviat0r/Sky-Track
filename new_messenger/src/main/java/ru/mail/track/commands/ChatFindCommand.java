@@ -16,17 +16,17 @@ public class ChatFindCommand implements Command {
     static Logger log = LoggerFactory.getLogger(ChatListCommand.class);
 
     private MessageStore messageStore;
-    private BaseCommandResult commandResult;
+    private ServerResponse commandResult;
 
     public ChatFindCommand(MessageStore messageStore) {
         this.messageStore = messageStore;
-        commandResult = new BaseCommandResult();
+        commandResult = new ServerResponse();
         commandResult.setStatus(CommandResult.Status.OK);
     }
 
 
     @Override
-    public BaseCommandResult execute(Session session, Message msg) {
+    public ServerResponse execute(Session session, Message msg) {
         SendMessage chatFindMsg = (SendMessage) msg;
         if (session.getSessionUser() != null) {
             String[] args = chatFindMsg.getMessage().split(">");

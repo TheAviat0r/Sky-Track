@@ -23,28 +23,32 @@ public class UserInfoCommand implements Command {
 
 
     @Override
-    public BaseCommandResult execute(Session session, Message msg) {
-        // TODO почему-то с каждым вызовом команды ее вывод накапливается, разобраться с этим
-        BaseCommandResult commandResult = new BaseCommandResult();
+    public ServerResponse execute(Session session, Message msg) {
+        ServerResponse commandResult = new ServerResponse();
         commandResult.setStatus(CommandResult.Status.OK);
 
         LoginMessage userInfoMsg = (LoginMessage) msg;
+
+        User usr = session.getSessionUser();
+
+        if (usr == null) {
+            commandResult.appendNewLine("Failed. Login into system before this command");
+            log.info("User isn't logged into system");
+            return commandResult;
+
+        }
         switch (userInfoMsg.getArgType()) {
             case SELF_INFO:
-                if (session.getSessionUser() != null) {
-                    commandResult.appendNewLine("login: " + session.getSessionUser().getName());
-                    commandResult.appendNewLine("password: " + session.getSessionUser().getPass());
-                    log.info("Success self_info: {}", session.getSessionUser());
-                } else {
-                    commandResult.setStatus(CommandResult.Status.NOT_LOGGINED);
-                    log.info("User isn't logged in.");
-                }
+                commandResult.appendNewLine("login: " + usr.getName());
+                commandResult.appendNewLine("password: " + usr.getPass());
+                commandResult.appendNewLine("id: " + usr.getId());
+                log.info("Success self_info: {}", usr);
                 break;
             case ID_INFO:
                 User user = userStore.getUserById(userInfoMsg.getUserId());
                 if (user != null) {
                     commandResult.appendNewLine("login: " + user.getName());
-//                    commandResult.appendNewLine("password: " + user.getPass());
+                    commandResult.appendNewLine("id: " + user.getId());
                     log.info("Success id_info: {}", userStore.getUserById(userInfoMsg.getUserId()));
                 } else {
                     log.info("Wrong userId: {}", userInfoMsg.getUserId());

@@ -1,10 +1,10 @@
-package ru.mail.track.jdbc;
+package ru.mail.track.database;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.mail.track.jdbc.tools.DatabaseConnector;
-import ru.mail.track.jdbc.tools.QueryExecutor;
+import ru.mail.track.database.tools.DatabaseConnector;
+import ru.mail.track.database.tools.QueryExecutor;
 import ru.mail.track.message.Chat;
 import ru.mail.track.message.Message;
 import ru.mail.track.message.MessageStore;
@@ -17,11 +17,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MessageDatabaseStore implements MessageStore {
-    static Logger log = LoggerFactory.getLogger(MessageDatabaseStore.class);
+public class MessageDao implements MessageStore {
+    static Logger log = LoggerFactory.getLogger(MessageDao.class);
     private QueryExecutor queryExecutor;
 
-    public MessageDatabaseStore() {
+    public MessageDao() {
         Connection connection = DatabaseConnector.getInstance().getConnection();
         queryExecutor = new QueryExecutor(connection);
     }
@@ -167,7 +167,7 @@ public class MessageDatabaseStore implements MessageStore {
         prepared.put(1, messageId);
 
         try {
-            SendMessage message = queryExecutor.execQuery("SELECT * FROM message_table WHERE id = ? LIMIT 1;", prepared, (r) -> {
+            SendMessage message = queryExecutor.execQuery("SELECT * FROM message_table WHERE id = ?;", prepared, (r) -> {
                 if (r.next()) {
                     SendMessage csm = new SendMessage(r.getLong(3), r.getString(4));
                     csm.setId(r.getLong(1));

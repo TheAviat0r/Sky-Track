@@ -34,6 +34,14 @@ public class LoginMessage extends Message {
         setType(CommandType.USER_LOGIN);
     }
 
+    public LoginMessage(CommandType messageType) {
+        super.setType(messageType);
+    }
+    public LoginMessage(String login, String password) {
+        this.login = login;
+        this.pass = password;
+    }
+
     public String getLogin() {
         return login;
     }

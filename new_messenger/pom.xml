@@ -22,7 +22,7 @@
                 <!--<artifactId>exec-maven-plugin</artifactId>-->
                 <!--<version>1.4.0</version>-->
                 <!--<configuration>-->
-                    <!--<mainClass>ru.mail.track.jdbc.JDBCExample</mainClass>-->
+                    <!--<mainClass>ru.mail.track.databasebase.JDBCExample</mainClass>-->
                 <!--</configuration>-->
             <!--</plugin>-->
         <!--</plugins>-->
@@ -135,6 +135,11 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
         </dependency>
 
 

@@ -18,18 +18,18 @@ public class LoginCommand implements Command {
 
     private AuthorizationService authService;
     private SessionManager sessionManager;
-    BaseCommandResult commandResult;
+    ServerResponse commandResult;
 
     public LoginCommand(AuthorizationService authService, SessionManager sessionManager) {
         this.authService = authService;
         this.sessionManager = sessionManager;
-        commandResult = new BaseCommandResult();
+        commandResult = new ServerResponse();
         commandResult.setStatus(CommandResult.Status.OK);
     }
 
 
     @Override
-    public BaseCommandResult execute(Session session, Message msg) {
+    public ServerResponse execute(Session session, Message msg) {
 
         LoginMessage loginMsg = (LoginMessage) msg;
         String name = loginMsg.getLogin();
@@ -46,10 +46,7 @@ public class LoginCommand implements Command {
                     log.info("Success login: {}", user);
                     UserInfoCommand userInfoCommand = new UserInfoCommand(authService.getUserStore());
 
-                    // Вывести информацию о себе
-                    LoginMessage userInfoMessage = new LoginMessage();
-                    userInfoMessage.setArgType(LoginMessage.ArgType.SELF_INFO);
-                    return userInfoCommand.execute(session, userInfoMessage);
+                    commandResult.setResponse("Login is OK: " + name + " " + password);
                 }
                 break;
             case CREAT_USER:

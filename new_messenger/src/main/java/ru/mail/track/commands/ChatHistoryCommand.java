@@ -25,8 +25,8 @@ public class ChatHistoryCommand implements Command {
 
 
     @Override
-    public BaseCommandResult execute(Session session, Message msg) {
-        BaseCommandResult commandResult = new BaseCommandResult();
+    public ServerResponse execute(Session session, Message msg) {
+        ServerResponse commandResult = new ServerResponse();
         commandResult.setStatus(CommandResult.Status.OK);
 
         SendMessage chatHistoryMsg = (SendMessage) msg;

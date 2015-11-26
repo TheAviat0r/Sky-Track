@@ -65,7 +65,6 @@ public class SocketConnectionHandler implements ConnectionHandler {
         listeners.add(listener);
     }
 
-
     // Разослать всем
     public void notifyListeners(Session session, Message msg) {
         listeners.forEach(it -> it.onMessage(session, msg));

@@ -17,17 +17,17 @@ public class SendCommand implements Command {
 
     private MessageStore messageStore;
     private SessionManager sessionManager;
-    private BaseCommandResult commandResult;
+    private ServerResponse commandResult;
 
     public SendCommand(SessionManager sessionManager, MessageStore messageStore) {
         this.sessionManager = sessionManager;
         this.messageStore = messageStore;
-        commandResult = new BaseCommandResult();
+        commandResult = new ServerResponse();
         commandResult.setStatus(CommandResult.Status.OK);
     }
 
     @Override
-    public BaseCommandResult execute(Session session, Message message) {
+    public ServerResponse execute(Session session, Message message) {
         SendMessage sendMessage = (SendMessage) message;
 
         Long chatId = sendMessage.getChatId();
