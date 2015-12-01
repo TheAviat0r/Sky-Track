@@ -12,10 +12,8 @@ import ru.mail.track.commands.CommandType;
 @JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include= JsonTypeInfo.As.PROPERTY, property="objectType")
 public class SendMessage extends Message {
 
-    @JsonProperty
     private Long chatId;
 
-    @JsonProperty
     private String message;
 
     public SendMessage() {

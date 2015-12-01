@@ -25,6 +25,9 @@ public class ChatSendHandler implements InputHandler{
             sb.append(" ");
         }
 
-        return new SendMessage(CommandType.CHAT_SEND, sb.toString());
+        SendMessage sendMessage = new SendMessage(CommandType.CHAT_SEND, sb.toString());
+        sendMessage.setChatId(Long.parseLong(tokens[1]));
+
+        return sendMessage;
     }
 }

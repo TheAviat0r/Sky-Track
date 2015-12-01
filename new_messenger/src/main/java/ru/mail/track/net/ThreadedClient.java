@@ -26,7 +26,7 @@ public class ThreadedClient implements MessageListener {
 
     static Logger log = LoggerFactory.getLogger(ThreadedClient.class);
 
-    public static final int PORT = 19048;
+    public static final int PORT = 19050;
     public static final String HOST = "localhost";
 
     ConnectionHandler connectionHandler;
@@ -228,6 +228,6 @@ public class ThreadedClient implements MessageListener {
 
     @Override
     public void onMessage(Session session, Message msg) {
-        System.out.printf("%s", ((SendMessage) msg).getMessage());
+        System.out.printf("\n%s\n", ((SendMessage) msg).getMessage());
     }
 }

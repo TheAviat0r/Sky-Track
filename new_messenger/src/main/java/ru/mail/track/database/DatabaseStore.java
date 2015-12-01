@@ -4,19 +4,19 @@ package ru.mail.track.database;
  * Created by Aviator on 24.11.2015.
  */
 public class DatabaseStore {
-    private MessageDao messageDao;
-    private UserDao userDatabaseStore;
+    private MessageStoreDatabase messageDao;
+    private UserStoreDatabase userDatabaseStore;
 
     public DatabaseStore() {
-        messageDao = new MessageDao();
-        userDatabaseStore = new UserDao();
+        messageDao = new MessageStoreDatabase();
+        userDatabaseStore = new UserStoreDatabase();
     }
 
-    public MessageDao getMessagesDao() {
+    public MessageStoreDatabase getMessagesDao() {
         return messageDao;
     }
 
-    public UserDao getUsersDao() {
+    public UserStoreDatabase getUsersDao() {
         return userDatabaseStore;
     }
 }

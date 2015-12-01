@@ -18,16 +18,12 @@ public class LoginMessage extends Message {
         ID_INFO,
     }
 
-    @JsonProperty
     private ArgType argType;
 
-    @JsonProperty
     private String login;
 
-    @JsonProperty
     private String pass;
 
-    @JsonProperty
     private Long id;
 
     public LoginMessage() {

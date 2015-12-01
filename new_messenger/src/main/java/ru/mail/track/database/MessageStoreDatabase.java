@@ -17,11 +17,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MessageDao implements MessageStore {
-    static Logger log = LoggerFactory.getLogger(MessageDao.class);
+public class MessageStoreDatabase implements MessageStore {
+    static Logger log = LoggerFactory.getLogger(MessageStoreDatabase.class);
     private QueryExecutor queryExecutor;
 
-    public MessageDao() {
+    public MessageStoreDatabase() {
         Connection connection = DatabaseConnector.getInstance().getConnection();
         queryExecutor = new QueryExecutor(connection);
     }

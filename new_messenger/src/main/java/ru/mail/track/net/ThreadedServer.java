@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class ThreadedServer {
 
-    public static final int PORT = 19048;
+    public static final int PORT = 19050;
     static Logger log = LoggerFactory.getLogger(ThreadedServer.class);
     private volatile boolean isRunning;
     private Map<Long, ConnectionHandler> handlers = new HashMap<>();

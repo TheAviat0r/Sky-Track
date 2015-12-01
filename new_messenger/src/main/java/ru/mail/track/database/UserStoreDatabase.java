@@ -14,11 +14,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserDao implements UserStore {
-    static Logger log = LoggerFactory.getLogger(UserDao.class);
+public class UserStoreDatabase implements UserStore {
+    static Logger log = LoggerFactory.getLogger(UserStoreDatabase.class);
     private QueryExecutor queryExecutor;
 
-    public UserDao() {
+    public UserStoreDatabase() {
         Connection connection = DatabaseConnector.getInstance().getConnection();
         queryExecutor = new QueryExecutor(connection);
     }
@@ -133,6 +133,7 @@ public class UserDao implements UserStore {
                     .append(StringEscapeUtils.escapeSql(user.getPass()))
                     .append("' WHERE id = ").append(user.getId()).append(";");
             List<Long> ids = queryExecutor.execUpdate(sb.toString());
+
             if (!ids.isEmpty()) {
                 log.info("Update user " + user);
                 return true;
