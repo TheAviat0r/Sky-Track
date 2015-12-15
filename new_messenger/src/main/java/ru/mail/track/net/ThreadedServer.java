@@ -16,33 +16,47 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
  *
  */
-public class ThreadedServer {
+public class ThreadedServer implements Server {
 
     public static final int PORT = 19050;
     static Logger log = LoggerFactory.getLogger(ThreadedServer.class);
+
     private volatile boolean isRunning;
+
     private Map<Long, ConnectionHandler> handlers = new HashMap<>();
+
     private AtomicLong internalCounter = new AtomicLong(0);
     private ServerSocket sSocket;
     private Protocol protocol;
     private SessionManager sessionManager;
     private CommandHandler commandHandler;
+
     private static final String manualFileName = "input.txt";
 
+    private Map<ConnectionHandler, Thread> handlersThreads = new HashMap<>();
 
+    private KeyboardInput commandInput;
+
+    private ExecutorService threadsExecutor;
 
     public ThreadedServer(Protocol protocol, SessionManager sessionManager, CommandHandler commandHandler) {
         try {
             this.protocol = protocol;
             this.sessionManager = sessionManager;
             this.commandHandler = commandHandler;
+
             sSocket = new ServerSocket(PORT);
             sSocket.setReuseAddress(true);
+
+            this.threadsExecutor = Executors.newCachedThreadPool();
+
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(0);
@@ -67,7 +81,7 @@ public class ThreadedServer {
         cmds.put(CommandType.CHAT_HISTORY, new ChatHistoryCommand(messageStore));
         cmds.put(CommandType.CHAT_FIND, new ChatFindCommand(messageStore));
         cmds.put(CommandType.CHAT_CREATE, new ChatCreateCommand(userStore, messageStore));
-        cmds.put(CommandType.CHAT_SEND, new SendCommand(sessionManager, messageStore));
+        cmds.put(CommandType.CHAT_SEND, new SendCommand(sessionManager, messageStore, userStore));
         cmds.put(CommandType.LOGOUT, new LogoutCommand());
 
         try {
@@ -80,7 +94,7 @@ public class ThreadedServer {
 
         CommandHandler handler = new CommandHandler(cmds);
 
-        ThreadedServer server = new ThreadedServer(protocol, sessionManager, handler);
+        Server server = new ThreadedServer(protocol, sessionManager, handler);
 
         try {
             server.startServer();
@@ -89,28 +103,66 @@ public class ThreadedServer {
         }
     }
 
-    private void startServer() throws Exception {
+    @Override
+    public void startServer() throws Exception {
         log.info("Started, waiting for connection");
 
+
+        Thread mainThread = Thread.currentThread();
+        commandInput = new KeyboardInput(this);
+//        commandInput.start();
+
+        threadsExecutor.submit(commandInput);
+
         isRunning = true;
+
         while (isRunning) {
             Socket socket = sSocket.accept();
+            System.out.println("Accepted");
             log.info("Accepted. " + socket.getInetAddress());
 
             ConnectionHandler handler = new SocketConnectionHandler(protocol, sessionManager.createSession(), socket);
             handler.addListener(commandHandler);
 
             handlers.put(internalCounter.incrementAndGet(), handler);
-            Thread thread = new Thread(handler);
-            thread.start();
+
+//            Thread thread = new Thread(handler);
+//            handlersThreads.put(handler, thread);
+//
+//            thread.start();
+//            handlersThreads.put(handler, thread);
+
+            threadsExecutor.submit(handler);
         }
+
+        log.info("isRunning = false, exiting from cycle");
+
+//        commandInput.join();
     }
 
+    @Override
     public void stopServer() {
         isRunning = false;
+
+        log.info("Stopping server");
+
+        threadsExecutor.shutdownNow();
+
         for (ConnectionHandler handler : handlers.values()) {
-            handler.stop();
+            try {
+                log.info("Stopping thread");
+                handler.stop();
+
+//                Thread currentThread = handlersThreads.get(handler);
+                //currentThread.join();
+
+                log.info("Thread is stopped");
+            } catch (Exception e) {
+                log.debug("Thread is stopped");
+            }
         }
+
+        log.info("Server is stopped");
     }
 }
 

@@ -47,7 +47,7 @@ public class CommandHandler implements MessageListener {
             SendMessage sendMessage = new SendMessage();
             sendMessage.setType(CommandType.CHAT_SEND);
             sendMessage.setChatId(0L);
-            sendMessage.setMessage("\n------------------\n" + commandResult.getResponse() + "\n------------------\n\n");
+            sendMessage.setMessage(commandResult.getResponse());
             session.getConnectionHandler().send(sendMessage);
 
             if (commandResult.getStatus() == CommandResult.Status.LOGGED_OUT) {

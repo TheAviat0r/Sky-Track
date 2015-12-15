@@ -14,4 +14,6 @@ public interface ConnectionHandler extends Runnable {
     void addListener(MessageListener listener);
 
     void stop();
+
+    void join();
 }

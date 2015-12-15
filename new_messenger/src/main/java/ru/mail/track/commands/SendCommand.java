@@ -1,9 +1,8 @@
 package ru.mail.track.commands;
 
-import ru.mail.track.message.Chat;
-import ru.mail.track.message.Message;
-import ru.mail.track.message.MessageStore;
-import ru.mail.track.message.SendMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import ru.mail.track.message.*;
 import ru.mail.track.net.SessionManager;
 import ru.mail.track.session.Session;
 
@@ -15,22 +14,35 @@ import java.util.List;
  */
 public class SendCommand implements Command {
 
+    private Logger log = LoggerFactory.getLogger(SendCommand.class);
+
     private MessageStore messageStore;
     private SessionManager sessionManager;
+    private UserStore userStore;
     //private ServerResponse commandResult;
 
-    public SendCommand(SessionManager sessionManager, MessageStore messageStore) {
+    public SendCommand(SessionManager sessionManager, MessageStore messageStore, UserStore userStore) {
         this.sessionManager = sessionManager;
         this.messageStore = messageStore;
+        this.userStore = userStore;
     }
 
     @Override
     public ServerResponse execute(Session session, Message message) {
+        if (session.getSessionUser() == null) {
+            return new ServerResponse("You have to login");
+        }
+
         ServerResponse commandResult = new ServerResponse();
         commandResult.setStatus(CommandResult.Status.OK);
 
         SendMessage sendMessage = (SendMessage) message;
-        sendMessage.setId(session.getSessionUser().getId());
+
+//        session.getSessionUser();
+
+        log.info("session id is setted: {}", session.getSessionUser().getId());
+
+        sendMessage.setSender(session.getSessionUser().getId());
 
         Long chatId = sendMessage.getChatId();
         Chat chat = messageStore.getChatById(chatId);
@@ -58,6 +70,6 @@ public class SendCommand implements Command {
             e.printStackTrace();
         }
 
-        return commandResult;
+        return new ServerResponse("OK");
     }
 }

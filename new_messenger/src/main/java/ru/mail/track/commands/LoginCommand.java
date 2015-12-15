@@ -34,31 +34,33 @@ public class LoginCommand implements Command {
         LoginMessage loginMsg = (LoginMessage) msg;
         String name = loginMsg.getLogin();
         String password = loginMsg.getPass();
+
         switch (loginMsg.getArgType()) {
             case LOGIN:
                 User user = authService.login(name, password);
+
                 if (user == null) {
                     log.info("login: Wrong login or password.");
-                    commandResult.setResponse("Wrong login or password.");
+                    return new ServerResponse("Wrong login or password");
                 } else {
                     session.setSessionUser(user);
                     sessionManager.registerUser(user.getId(), session.getId());
                     log.info("Success login: {}", user);
                     UserInfoCommand userInfoCommand = new UserInfoCommand(authService.getUserStore());
 
-                    commandResult.setResponse("Login is OK: " + name + " " + password);
+                    return new ServerResponse("Login is OK: " + name + " " + password);
                 }
-                break;
             case CREAT_USER:
                 User newUser = authService.creatUser(name, password);
                 if (newUser == null) {
                     log.info("creat_user: The user with this name has already existed.");
-                    commandResult.setResponse("The user with this name has already existed.");
+
+                    return new ServerResponse("This user already exists");
                 } else {
                     log.info("Success creat_user: {}", newUser);
-                    commandResult.setResponse("The new user successfully was created.");
+
+                    return new ServerResponse("User is successfully created");
                 }
-                break;
             default:
                 log.info("Wrong argType: {}", loginMsg.getArgType());
         }

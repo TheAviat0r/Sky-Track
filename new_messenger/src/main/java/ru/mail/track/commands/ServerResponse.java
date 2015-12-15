@@ -12,6 +12,7 @@ public class ServerResponse extends CommandResult {
     public ServerResponse(String response) {
         super();
         this.response = response;
+        this.setStatus(CommandResult.Status.OK);
     }
 
     public ServerResponse(CommandResult.Status result, String response) {

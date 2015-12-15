@@ -86,7 +86,8 @@ public class MessageStoreDatabase implements MessageStore {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+
+        return null;
     }
 
     @Override
@@ -105,8 +106,13 @@ public class MessageStoreDatabase implements MessageStore {
                     c.setId(r.getLong(1));
                     return c;
                 }
+
                 return null;
             });
+
+            if (chat == null) {
+                return null;
+            }
 
             List<Long> participants = queryExecutor.execQuery("SELECT * FROM chat_user_table WHERE chat_id = ?;", prepared, (r) -> {
                 List<Long> data = new ArrayList<>();
@@ -115,6 +121,7 @@ public class MessageStoreDatabase implements MessageStore {
                 }
                 return data;
             });
+
             chat.setParticipantIds(participants);
 
             List<Long> messages = getMessagesFromChat(chatId);
@@ -126,6 +133,7 @@ public class MessageStoreDatabase implements MessageStore {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 

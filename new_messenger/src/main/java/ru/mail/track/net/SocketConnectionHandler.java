@@ -2,8 +2,10 @@ package ru.mail.track.net;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,6 +75,7 @@ public class SocketConnectionHandler implements ConnectionHandler {
     @Override
     public void run() {
         final byte[] buf = new byte[1024 * 64];
+
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 int read = in.read(buf);
@@ -84,8 +87,13 @@ public class SocketConnectionHandler implements ConnectionHandler {
                     // Уведомим всех подписчиков этого события
                     notifyListeners(session, msg);
                 }
+            } catch (SocketException socketException) {
+                System.out.println("Disconnecting from socket");
+
+                Thread.currentThread().interrupt();
             } catch (Exception e) {
                 log.error("Failed to handle connection: {}", e);
+
                 e.printStackTrace();
                 Thread.currentThread().interrupt();
             }
@@ -94,7 +102,18 @@ public class SocketConnectionHandler implements ConnectionHandler {
 
     @Override
     public void stop() {
-        Thread.currentThread().interrupt();
+        try {
+            socket.close();
+        } catch (IOException e) {
+            System.out.println("Server is stopping now, sry");
+        }
+
+        //Thread.currentThread().interrupt();
+    }
+
+    @Override
+    public void join() {
+
     }
 }
 

@@ -30,18 +30,22 @@ public class ChatHistoryCommand implements Command {
         commandResult.setStatus(CommandResult.Status.OK);
 
         SendMessage chatHistoryMsg = (SendMessage) msg;
+
         if (session.getSessionUser() != null) {
             Long chatId = Long.parseLong(chatHistoryMsg.getMessage());
             Chat chat = messageStore.getChatById(chatId);
+
             if (chat == null) {
                 commandResult.setResponse("This chat doesn't exist.");
             } else {
                 List<Long> messages = messageStore.getMessagesFromChat(chatId);
+
                 for (Long id : messages) {
                     SendMessage chatMessage = (SendMessage) messageStore.getMessageById(id);
                     commandResult.appendNewLine(chatMessage.getMessage());
                     log.info("{} message: {}", id, chatMessage.getMessage());
                 }
+
                 log.info("Success chat_history: {}", chat);
                 log.info("messages: {}", commandResult.getResponse());
             }

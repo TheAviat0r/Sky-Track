@@ -19,6 +19,7 @@ public class DatabaseConnector {
                 }
             }
         }
+
         return localInstance;
     }
 
