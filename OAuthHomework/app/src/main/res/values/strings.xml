@@ -3,7 +3,7 @@
 
     <string name="client_id">id</string>
     <string name="client_secret">secret</string>
-    <string name="auth_url">http://10.0.3.2:8000/accounts/login</string>
+    <string name="auth_url">http://10.0.3.2:8000/o/authorize/?response_type=token&amp;client_id=id&amp;redirect_uri=http://example.com</string>
     <string name="callback_url">http://example.com</string>
 
     <string name="login_button">Login</string>
