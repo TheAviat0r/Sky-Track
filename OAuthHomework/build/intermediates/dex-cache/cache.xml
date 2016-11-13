@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="75b1f366ff0bbc78f8b1f7cf0dc82e7c53afef6a">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.0.0_10c05a8078f5436cb96fc244ccad0fd5cb03ae70/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ee5faf4dee5b6a4364bf51587871047dde7c703a">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_277ac353513d5dd8c9f6a2943d566832a63f2140/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26674000177e45447a0326a6ad84612761199a13">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.0.0_ba5677791d8b2388b7e0e04c95773df4b5d6f8fa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.0/support-annotations-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a22d2cc94da87b254451fa8ed28afc30b4653773">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.0.0_80b27c7eab89cd4c8111858d5207d7633aa16e61/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d29714cc76b38157e3cbd034c66e1ec808eb4c19">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.0.0_3e4281c11ef36d129f973a4c5a0ef351c1b621d9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c84cff5fe8d40fb22f3be11e0444031383a2f046">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_fdcd5c72b291def56e5421878491883c10d57c89/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8bc45ce1f63d1a391fd38b32a201be5a42f9c95d">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.0.0_11e2f6fd5065a877cb0b57733e64dd68f62986b3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_0c6a378a86111540bd391ffc9635c04d4a90ee15/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ebd79b1f602ebdd8a536deb09d320b27b51e883a">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_247cedc28679f8e53fada84a566ef4616ba5ef18/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b61a70884adaf0be3fc06c70c801e3e6df13133">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_35df0edf711c2f7ebbd7195c2682c8261febcda4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="665d21a8a069c96b4d9e8b434f5096d865b4e261">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_0f65c8caabcb66c10f0f6bc54c43f3dcd321f097/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="53a420cd4f49274db6bd43475f8006ba67ef6bbd">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.0.0_1a45e14c91dce059c5a88cc4e603154eee2e675a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="4ccbcda5c72027c7f7c14be9ff8640d9cb0d8da0">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.0.0_ee4f74d6ffd4b589e1466bc96449e5c33d39a3de/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.0.0_f047ea71a2b8e3780a2f12bbc731bd042ac9c125/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.0.0/jars/libs/internal_impl-25.0.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f2e3b9bc1ec25f652e8007ce7774c991e38f6a00">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.0_7d000e78e90a9b3da3a408182c1f1b7efd2e38fc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="07daa0b6e1d455c82a38422ffe287c18823d339a">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.0.0_52de410d963b19ae8caa6b0dc77a5c28b48c43b2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.0.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="76fb65a4b41ea42dab8a1310ed772a2420c96b52">
+        <dex dex="/home/aviator/Desktop/Track/Android/OAuthHomework/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.0.0_a9a674723db2816b29237619d0c85d715508cbf2/classes.dex" />
+    </item>
+
+</items>
