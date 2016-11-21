@@ -7,4 +7,10 @@
     <string name="callback_url">http://example.com</string>
 
     <string name="login_button">Login</string>
+
+    <string name="success_auth">success</string>
+    <string name="failed_auth">fail</string>
+    <string name="auth_key">auth_key</string>
+    <string name="auth_result_text">Authorization was successful, you are welcome!</string>
+    <string name="fail_result_text">There is something wrong with token. Try to authorize again!</string>
 </resources>

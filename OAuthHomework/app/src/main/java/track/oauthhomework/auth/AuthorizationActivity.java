@@ -8,6 +8,9 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.ValueCallback;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -28,22 +31,11 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
     public final static String EXTRA_CLIENT_ID = "client_id";
     public final static String EXTRA_CLIENT_SECRET = "client_secret";
 
-    private String clientId;
-    private String clientSecret;
-
     private String authToken;
     private String authUrl;
     private String callbackUrl;
 
     private WebView webView;
-
-    public static Intent createAuthActivityIntent(Context context, String clientId, String clientSecret) {
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_CLIENT_ID, clientId);
-        intent.putExtra(EXTRA_CLIENT_SECRET, clientSecret);
-
-        return intent;
-    }
 
 
     @Override
@@ -51,7 +43,12 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authorization);
 
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.removeAllCookie();
+
         webView = (WebView) findViewById(R.id.auth_view);
+        webView.clearCache(false);
+        webView.clearHistory();
 
         authUrl = getString(R.string.auth_url);
         callbackUrl = getString(R.string.callback_url);
@@ -99,11 +96,15 @@ public class AuthorizationActivity extends AppCompatActivity implements Authoriz
 
             if (url.startsWith(callbackUrl)) {
                 String tokenUrl = url.split("=")[1];
-                String token = tokenUrl.split("&")[0];
+                authToken = tokenUrl.split("&")[0];
 
-                Log.d(TAG, "[TOKEN ACQUIRED]: " + token);
+                Log.d(TAG, "[TOKEN ACQUIRED]: " + authToken);
 
-                onComplete(token);
+                if (url.contains("error")) {
+                    onError(url);
+                } else {
+                    onComplete(authToken);
+                }
             }
         }
 
