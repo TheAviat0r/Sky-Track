@@ -27,6 +27,8 @@ public class LoginFragment extends Fragment implements OnBackPressedListener {
     private final static String TAG = "LoginFragment";
 
     private final static int REQUEST_CODE = 100;
+    private final static int TOKEN_CHECK_CODE = 42;
+    private final static int STATUS_OK = 200;
 
     private final static String KEY_AUTH_TOKEN = "auth_token";
     private final static String AUTH_KEY = "auth";
@@ -38,6 +40,7 @@ public class LoginFragment extends Fragment implements OnBackPressedListener {
     private SharedPreferences settings;
 
     private TextView authorizationResultView;
+    private Button tryAgainButton;
 
     private Boolean quitOnBackPressed = false;
 
@@ -50,9 +53,21 @@ public class LoginFragment extends Fragment implements OnBackPressedListener {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_login, container, false);
+        authorizationResultView = (TextView) view.findViewById(R.id.resultView);
+        tryAgainButton = (Button) view.findViewById(R.id.button);
+        tryAgainButton.setVisibility(View.INVISIBLE);
+
+        tryAgainButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AuthorizationActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
+            }
+        });
 
         if (!isNetworkAvailable()) {
-            authorizationResultView = (TextView) view.findViewById(R.id.resultView);
+            Log.d(TAG, "Network not available");
+
             authorizationResultView.setText(R.string.network_fail_text);
 
             quitOnBackPressed = true;
@@ -64,12 +79,16 @@ public class LoginFragment extends Fragment implements OnBackPressedListener {
         authToken = settings.getString(KEY_AUTH_TOKEN, null);
 
         if (authToken == null) {
+            Log.d(TAG, "authToken == null, confirmed");
+
             Intent intent = new Intent(getActivity(), AuthorizationActivity.class);
             startActivityForResult(intent, REQUEST_CODE);
         } else {
-//            TODO: launch SplashScreenActivity that checks retrieved token
-//            Intent intent = new Intent(getActivity(), SplashScreenActivity.class);
-//            startActivityForResult(intent, REQUEST_CODE);
+            Log.d(TAG, "Token checking started");
+
+            Intent intent = new Intent(getActivity(), SplashScreenActivity.class);
+            intent.putExtra(KEY_AUTH_TOKEN, authToken);
+            startActivityForResult(intent, TOKEN_CHECK_CODE);
         }
 
         return view;
@@ -105,6 +124,18 @@ public class LoginFragment extends Fragment implements OnBackPressedListener {
                 editor.commit();
 
                 authorizationResultView.setText(R.string.auth_success_text);
+            }
+        }
+
+        if (requestCode == TOKEN_CHECK_CODE) {
+            Log.d(TAG, "requestCode = TOKEN_CHECK_CODE");
+
+            if (resultCode == Activity.RESULT_CANCELED) {
+                authorizationResultView.setText(R.string.failed_auth);
+
+                settings.edit().remove(KEY_AUTH_TOKEN).commit();
+
+                tryAgainButton.setVisibility(View.VISIBLE);
             }
         }
     }
