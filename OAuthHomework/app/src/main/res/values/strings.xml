@@ -11,6 +11,6 @@
     <string name="success_auth">success</string>
     <string name="failed_auth">fail</string>
     <string name="auth_key">auth_key</string>
-    <string name="auth_result_text">Authorization was successful, you are welcome!</string>
-    <string name="fail_result_text">There is something wrong with token. Try to authorize again!</string>
+    <string name="auth_success_text">Authorization was successful, you are welcome!</string>
+    <string name="network_fail_text">Network is not available!</string>
 </resources>
