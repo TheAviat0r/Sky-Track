@@ -87,6 +87,7 @@ public class LoginFragment extends Fragment implements OnBackPressedListener {
             Log.d(TAG, "Token checking started");
 
             Intent intent = new Intent(getActivity(), SplashScreenActivity.class);
+
             intent.putExtra(KEY_AUTH_TOKEN, authToken);
             startActivityForResult(intent, TOKEN_CHECK_CODE);
         }

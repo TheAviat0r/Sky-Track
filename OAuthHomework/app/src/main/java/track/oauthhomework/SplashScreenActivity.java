@@ -17,7 +17,8 @@ public class SplashScreenActivity extends AppCompatActivity implements TokenChec
     private final static int STATUS_OK = 200;
     private final static String KEY_AUTH_TOKEN = "auth_token";
 
-    private String authToken;
+    private volatile String authToken;
+    private AccessTokenChecker accessTokenChecker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,14 @@ public class SplashScreenActivity extends AppCompatActivity implements TokenChec
         Intent intent = getIntent();
         authToken = intent.getStringExtra(KEY_AUTH_TOKEN);
 
-        new AccessTokenChecker(this).execute(authToken);
+        accessTokenChecker = new AccessTokenChecker(this);
+        accessTokenChecker.execute(authToken);
+    }
+
+    @Override
+    protected void onStop() {
+        accessTokenChecker.cancel(true);
+        accessTokenChecker.setListener(null);
     }
 
     @Override
@@ -52,13 +60,17 @@ public class SplashScreenActivity extends AppCompatActivity implements TokenChec
 
     private class AccessTokenChecker extends AsyncTask<String, Void, Boolean> {
         private TokenCheckerListener mListener;
-        private String authToken;
+        private volatile String authToken;
 
         private Boolean validationResult;
 
         public AccessTokenChecker(TokenCheckerListener listener) {
             this.mListener = listener;
             this.validationResult = false;
+        }
+
+        public void setListener(TokenCheckerListener listener) {
+            this.mListener = listener;
         }
 
         @Override
@@ -103,10 +115,12 @@ public class SplashScreenActivity extends AppCompatActivity implements TokenChec
 
         @Override
         protected void onPostExecute(Boolean validationResult) {
-            if (!validationResult) {
-                mListener.onFailCheck(authToken);
-            } else {
-                mListener.onSuccessCheck();
+            if (mListener != null) {
+                if (!validationResult) {
+                    mListener.onFailCheck(authToken);
+                } else {
+                    mListener.onSuccessCheck();
+                }
             }
         }
     }
