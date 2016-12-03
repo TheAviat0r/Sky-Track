@@ -100,14 +100,18 @@ public class MainActivity extends AppCompatActivity {
 
         switch (requestCode) {
             case PERMISSIONS_REQUEST_CODE:
+                Log.d(TAG, ACTIVITY + "permissionsRequestCode");
+
                 if (grantResults.length > 0) {
                     boolean writeExternalAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean readExternalAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
                     if (writeExternalAccepted && readExternalAccepted) {
-                        Toast.makeText(getApplicationContext(), "All permissions were granted", Toast.LENGTH_SHORT);
+                        Log.d(TAG, ACTIVITY + "permissions granted");
+
+                        Toast.makeText(getApplicationContext(), "All permissions were granted", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Permissions were denied", Toast.LENGTH_SHORT);
+                        Log.d(TAG, ACTIVITY + "permissions denied");
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                             if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
@@ -130,10 +134,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showMessageOkCancel(String message, DialogInterface.OnClickListener listener) {
+        Log.d(TAG, ACTIVITY + "showMessageOkCancel");
+        
         new AlertDialog.Builder(this)
                 .setMessage(message)
                 .setPositiveButton("OK", listener)
-                .setNegativeButton("Cancel", null);
+                .setNegativeButton("Cancel", null).create().show();
     }
 
     @Override
