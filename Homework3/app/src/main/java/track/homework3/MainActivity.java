@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showMessageOkCancel(String message, DialogInterface.OnClickListener listener) {
         Log.d(TAG, ACTIVITY + "showMessageOkCancel");
-        
+
         new AlertDialog.Builder(this)
                 .setMessage(message)
                 .setPositiveButton("OK", listener)
