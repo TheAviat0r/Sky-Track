@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QuestionTest</string>
+    <string name="q1">Is Tokyo a capital of China?</string>
+    <string name="q2">Is Moscow the capital of Russia?</string>
+    <string name="q3">Is London the capital of UK?</string>
+    <string name="result_title">Your total score is:</string>
+</resources>
